@@ -1,5 +1,6 @@
-import { ChangeEvent, FormEvent, useState } from "react"
+import { FormEvent} from "react"
 import { Button, Container, Form } from "react-bootstrap"
+import { useUserContext } from "../../context/userContext"
 import { useInput } from "../../hooks/useInput"
 
 interface UserType {
@@ -15,8 +16,8 @@ export const Login = () => {
     console.log(userInfo)
   }
 
-  
-
+  const userContext = useUserContext()
+  console.log(userContext)
   return (
     <Container fluid className="d-flex align-items-center bg-dark" style={{height: '100vh'}}>
       <Form onSubmit={submitHanlder} className="w-100">
@@ -29,7 +30,7 @@ export const Login = () => {
           <Form.Control id='password' type='text' onChange={changeHandler} value={userInfo.password} required/>
         </Form.Group>
         <Button type='submit' className="me-2">Login</Button>
-        <Button type='submit' variant="secondary">Register</Button>
+        <Button variant="secondary">Register</Button>
       </Form>
     </Container>     
   )
