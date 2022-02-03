@@ -2,24 +2,26 @@ import { FormEvent} from "react"
 import { Button, Container, Form } from "react-bootstrap"
 import { useUserContext } from "../../context/userContext"
 import { useInput } from "../../hooks/useInput"
-
-interface UserType {
-  username: string
-  password: string
-}
+import { UserType } from "../../types/userTypes"
 
 export const Login = () => { 
   const {value: userInfo, changeHandler} = useInput<UserType>({username: '', password: ''})
+  const userContext = useUserContext()
   
   const submitHanlder = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    console.log(userInfo)
+    e.preventDefault() 
+    userContext.loginUserHandler!(userInfo)
   }
 
-  const userContext = useUserContext()
-  console.log(userContext)
+  const registerHanlder = () => {
+    userContext.registerUserHandler!(userInfo)
+  }
+
+  
+
   return (
     <Container fluid className="d-flex align-items-center bg-dark" style={{height: '100vh'}}>
+      <p className="text-white">{userContext.user?.username || 'Not Connected'}</p>
       <Form onSubmit={submitHanlder} className="w-100">
         <Form.Group className='mb-2'>
           <Form.Label htmlFor='username' className="text-white">Enter Your Username</Form.Label>
@@ -30,7 +32,7 @@ export const Login = () => {
           <Form.Control id='password' type='text' onChange={changeHandler} value={userInfo.password} required/>
         </Form.Group>
         <Button type='submit' className="me-2">Login</Button>
-        <Button variant="secondary">Register</Button>
+        <Button variant="secondary" onClick={registerHanlder}>Register</Button>
       </Form>
     </Container>     
   )
