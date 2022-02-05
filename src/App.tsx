@@ -1,13 +1,17 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { Login } from './pages'
+import { useUserContext } from './context/userContext'
+import { Chat, Login } from './pages'
 
 function App() {
+  const {user} = useUserContext()
+  
   return (
     <Routes>
-      <Route path='/' element={<Login />}>
-        <Route path='projects' element={<h1>Projects</h1>}/>
-      </Route>
-      <Route path='*' element={<Navigate to='/' />} />
+      <Route path='/' element={
+        user ? 
+          <Chat />
+          :<Login />} />
+      <Route path='*' element={ <Navigate to='/' />} />
     </Routes>
   )
 }

@@ -5,12 +5,21 @@ import App from './App'
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { UserProvicer } from './context/userContext'
+import { FriendsProvicer } from './context/friendsContext'
+import { ConversationsProvicer } from './context/conversationContext'
+import { SocketProvider } from './context/socketContext'
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <UserProvicer>
-        <App />
+        <SocketProvider>
+          <FriendsProvicer>
+            <ConversationsProvicer>
+              <App />
+            </ConversationsProvicer>
+          </FriendsProvicer>
+        </SocketProvider>
       </UserProvicer>
     </BrowserRouter>
   </React.StrictMode>,

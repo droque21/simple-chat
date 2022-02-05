@@ -1,7 +1,8 @@
-import { createContext, FC, useContext, useState} from "react";
-import { loginUser, registerUser } from "../api/user.api";
-import { UserType } from "../types/userTypes";
-import { UserContextProps } from "./contextTypes";
+import { createContext, FC, useContext} from 'react'
+import { loginUser, registerUser } from '../api/user.api'
+import { useLocalStorage } from '../hooks/useLocalStorage'
+import { UserType } from '../types/types'
+import { UserContextProps } from './contextTypes'
 
 const UserContext = createContext<Partial<UserContextProps>>({})
 
@@ -10,7 +11,7 @@ export const useUserContext = () => {
 }
 
 export const UserProvicer: FC = ({children}) => {
-  const [user, setUser] = useState<UserType|null>(null)
+  const [user, setUser] = useLocalStorage<UserType>('user')
 
   const registerUserHandler = async (user: UserType) => {
     await registerUser(user)
@@ -18,9 +19,9 @@ export const UserProvicer: FC = ({children}) => {
   }
 
   const loginUserHandler = async (user: UserType) => {
-    const userLogged = await loginUser(user)
-    console.log(userLogged.user)
-    setUser(userLogged.user)
+    const resp = await loginUser(user)
+    const {username, token} = resp.data
+    setUser({username, token })
   }
 
   return (
@@ -28,4 +29,4 @@ export const UserProvicer: FC = ({children}) => {
       {children}
     </UserContext.Provider>
   )
-};
+}
