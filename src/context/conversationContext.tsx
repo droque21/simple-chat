@@ -24,9 +24,11 @@ export const ConversationsProvicer: FC = ({children}) => {
   const [conversations, setConversations] = useLocalStorage<ConversationType[]>(`${user?.username}-chats`,[])
   const [selectedConversationIndex, setSelectedConversationIndex] = useState<number>(0)
   const {socket} = useSocketContext()
+  
   const createConversation = (recipients: string[]) => {
     setConversations(prevCon => {
-      return [...prevCon!, {recipients: recipients, messages: []} ] as ConversationType[]
+      const recipientsFormatted = recipients.map(r => ({username: r, name: r}))
+      return [...prevCon!, {recipients: recipientsFormatted, messages: []} ] as ConversationType[]
     })
   }
 
@@ -34,7 +36,6 @@ export const ConversationsProvicer: FC = ({children}) => {
     setConversations(prevC => {
       let madeChange = false
       const newMessage = { sender, message: text}
-      console.log(sender)
       const conversationsUpdated = prevC!.map(c => {
         const cRecipients = c.recipients.map(r=> r.username)
         if(arraysAreEqual(cRecipients, recipients)){
