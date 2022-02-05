@@ -1,3 +1,4 @@
+// @ts-ignore
 import { useState } from 'react'
 import { Button, Modal, Nav, Tab } from 'react-bootstrap'
 import { Conversations } from './conversation/Conversations'
@@ -12,7 +13,7 @@ const FRIENDS_KEY = 'friends'
 export const SideBar = () => {
   const {user} = useUserContext()
   const [modalOpen, setModalOpen] = useState(false)
-  const [activeTab, setActiveTab] = useState<string>(CONVERSATION_KEY)
+  const [activeTab, setActiveTab] = useState<any>(CONVERSATION_KEY)
   const conversationOpen = activeTab === CONVERSATION_KEY
 
   const closeModal = () => {

@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
 import { beUrl } from '../config'
 import {  FriendsGetResponse, NewFriendsPostResponse } from '../types/apiResponsesTypes'
 import { FriendType, UserType } from '../types/types'

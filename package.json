@@ -1,6 +1,6 @@
 {
-  "name": "portfolio",
-  "version": "0.0.0",
+  "name": "simple-chat",
+  "version": "0.1.0",
   "scripts": {
     "dev": "vite --host",
     "build": "tsc && vite build",

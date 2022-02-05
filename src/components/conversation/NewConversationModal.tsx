@@ -6,6 +6,7 @@ import { useConversationContext } from '../../context/conversationContext'
 interface Props {
   closeModal: ()=> void
 }
+
 export const NewConversationModal: FC<Props> = ({closeModal}) => {
   const {friends} = useFriendsContext()
   const { createConversation } = useConversationContext()
@@ -34,6 +35,7 @@ export const NewConversationModal: FC<Props> = ({closeModal}) => {
             <Form.Group controlId={f.username} key={f.username}>
               <Form.Check
                 type='checkbox'
+                // @ts-ignore comment
                 value={selectedFriends.includes(f.username)}
                 label={f.name}
                 onChange={()=> handleCheckboxChange(f.username)}
