@@ -36,7 +36,8 @@ export const ConversationsProvicer: FC = ({children}) => {
       const newMessage = { sender, message: text}
       console.log(sender)
       const conversationsUpdated = prevC!.map(c => {
-        if(arraysAreEqual(c.recipients, recipients)){
+        const cRecipients = c.recipients.map(r=> r.username)
+        if(arraysAreEqual(cRecipients, recipients)){
           madeChange = true
           return {
             ...c,
@@ -69,9 +70,9 @@ export const ConversationsProvicer: FC = ({children}) => {
 
   const formattedConversations = conversations!.map((c, i) => {
     const recipients = c.recipients.map(r => {
-      const friend = friends!.find(f => f.username === r) 
-      const name = (friend && friend.name) || r
-      return {username: r, name: name} as RecipientType
+      const friend = friends!.find(f => f.username === r.username) 
+      const name = (friend && friend.name) || r.username
+      return {username: r.username, name: name}
     })
 
     const messages = c.messages.map(m => {

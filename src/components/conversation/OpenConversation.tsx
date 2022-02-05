@@ -7,7 +7,7 @@ export const OpenConversation = () => {
   const [text, setText] = useState('')
   const setRef = useCallback((node:HTMLDivElement) => {
     if(node){
-      node.scrollIntoView({smoth: true})
+      node.scrollIntoView({behavior: 'smooth'})
     }
   }, [])
 

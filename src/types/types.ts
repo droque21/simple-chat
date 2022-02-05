@@ -10,7 +10,7 @@ export interface FriendType {
 }
 
 export interface ConversationType {
-  recipients:  Array<RecipientType | string>
+  recipients:  RecipientType[]
   messages: MessageType[]
   selected: boolean
 }
