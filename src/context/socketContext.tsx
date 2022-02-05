@@ -15,11 +15,17 @@ export const SocketProvider: FC = ({children}) => {
   const [socket, setSocket] = useState<Socket | null>(null)
   
   useEffect(() => {
-    const newSocket = io(beUrl, {query: {id: user?.username}})
+    let newSocket : Socket
+    if(user){
+      newSocket = io(beUrl, {query: {id: user?.username}})
+      setSocket(newSocket)
+    }
 
-    setSocket(newSocket)
-
-    return () => {newSocket.close()}
+    return () => {
+      if(newSocket){
+        newSocket.close()
+      }
+    }  
   }, [user])
   
   return (
